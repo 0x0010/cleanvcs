@@ -8,6 +8,8 @@ import (
 	"time"
 )
 
+const SLEEP_TIME = 50 * time.Millisecond
+
 func DelVcsFiles(vd *VcsDirectory) {
 	delFiles(vd.FilePath)
 	delDir(vd.DirPath)
@@ -16,7 +18,7 @@ func DelVcsFiles(vd *VcsDirectory) {
 func delFiles(files []string) {
 	for _, element := range files {
 		// sleep 50ms for risk shutdown
-		time.Sleep(50 * time.Millisecond)
+		time.Sleep(SLEEP_TIME)
 
 		err := os.Remove(element)
 		if nil != err {
@@ -35,7 +37,7 @@ func delDir(dir []string) {
 
 	for idx := len(dir) - 1; idx >= 0; idx-- {
 		// sleep 50ms for risk shutdown
-		time.Sleep(50 * time.Millisecond)
+		time.Sleep(SLEEP_TIME)
 		dirPath := dir[idx]
 		err := os.Remove(dirPath)
 		if nil != err {
