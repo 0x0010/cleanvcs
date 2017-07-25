@@ -3,14 +3,15 @@ package main
 import (
 	"bufio"
 	"fmt"
-	"github.com/0x0010/cleanvcs/pad"
-	"github.com/0x0010/cleanvcs/utils"
 	"os"
 	"runtime"
 	"strings"
+
+	"github.com/0x0010/cleanvcs/pad"
+	"github.com/0x0010/cleanvcs/utils"
 )
 
-var curr_path = utils.CurrentPath()
+var currPath = utils.CurrentPath()
 
 func main() {
 
@@ -19,7 +20,7 @@ func main() {
 
 	// scan version control system files
 	vd := utils.NewVcsDirectory()
-	vd = utils.SearchVcs(vd, curr_path)
+	vd = utils.SearchVcs(vd, currPath)
 
 	// log scan result summary
 	logSummary(vd)
@@ -41,7 +42,7 @@ func main() {
 }
 
 func logGreeting() {
-	fmt.Println("current path: ", curr_path)
+	fmt.Println("current path: ", currPath)
 	fmt.Println("scanning vcs files and directories...")
 }
 
