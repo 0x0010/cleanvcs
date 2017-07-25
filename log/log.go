@@ -12,7 +12,7 @@ import (
 )
 
 var (
-	info  = log.New(os.Stdout, "\033[36mINFO\033[00m  ", log.Ldate | log.Ltime)
+	info  = log.New(os.Stdout, "\033[36mINFO\033[00m  ", log.Ldate|log.Ltime)
 	warn  = log.New(os.Stdout, "\033[33mWARN\033[00m  ", log.LstdFlags)
 	error = log.New(os.Stderr, "\033[31mERROR\033[00m ", log.LstdFlags)
 )
