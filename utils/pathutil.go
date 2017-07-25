@@ -1,7 +1,7 @@
 package utils
 
 import (
-	_log "github.com/0x0010/cleanvcs/log"
+	"fmt"
 	"log"
 	"os"
 	"path/filepath"
@@ -21,18 +21,18 @@ func SearchVcs(vd *VcsDirectory, root string) *VcsDirectory {
 	walkFn := func(path string, info os.FileInfo, err error) error {
 		if isVcsPath(path) {
 			if info.IsDir() {
-				vd.AppendDir(path)
-				_log.Infof("D: %s", strings.TrimPrefix(path, root))
+				vd.DirPath = append(vd.DirPath, path)
+				fmt.Printf("D: %s\n", strings.TrimPrefix(path, root))
 			} else {
-				vd.AppendFile(path)
-				_log.Infof("F: %s", strings.TrimPrefix(path, root))
+				vd.FilePath = append(vd.FilePath, path)
+				fmt.Printf("F: %s\n", strings.TrimPrefix(path, root))
 			}
 		}
 		return nil
 	}
 	err := filepath.Walk(root, walkFn)
 	if err != nil {
-		log.Fatalf("Walk path %s failed", root)
+		log.Fatalf("Walk path %s failed\n", root)
 	}
 	return vd
 }
@@ -42,30 +42,15 @@ func isVcsPath(path string) bool {
 	if len(path) <= 0 {
 		return false
 	}
-	return strings.Contains(path, ".svn")
+	return strings.Contains(path, ".svn") ||
+		strings.Contains(path, ".git")
 }
 
 type VcsDirectory struct {
-	filePath []string
-	dirPath  []string
+	FilePath []string
+	DirPath  []string
 }
 
 func NewVcsDirectory() *VcsDirectory {
-	return &VcsDirectory{filePath: nil, dirPath: nil}
-}
-
-func (vd *VcsDirectory) AppendFile(file string) {
-	vd.filePath = append(vd.filePath, file)
-}
-
-func (vd *VcsDirectory) AppendDir(dir string) {
-	vd.dirPath = append(vd.dirPath, dir)
-}
-
-func (vd *VcsDirectory) DirCount() int {
-	return len(vd.dirPath)
-}
-
-func (vd *VcsDirectory) FileCount() int {
-	return len(vd.filePath)
+	return &VcsDirectory{FilePath: nil, DirPath: nil}
 }
