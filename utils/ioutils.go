@@ -14,7 +14,9 @@ func DelVcsFiles(vd *VcsDirectory) {
 
 func delFiles(files []string, isDir bool) {
 	for _, element := range files {
+		// sleep 50ms for risk shutdown
 		time.Sleep(50 * time.Millisecond)
+
 		err := os.Remove(element)
 		if nil != err {
 			log.Fatal(err)
