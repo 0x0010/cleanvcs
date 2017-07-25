@@ -5,6 +5,7 @@ import (
 	"log"
 	"os"
 	"path/filepath"
+	"runtime"
 	"strings"
 )
 
@@ -42,8 +43,8 @@ func isVcsPath(path string) bool {
 	if len(path) <= 0 {
 		return false
 	}
-	return strings.Contains(path, ".svn") ||
-		strings.Contains(path, ".git")
+	return strings.Contains(path, fmt.Sprintf("%s.svn%s", pathSeparator(), pathSeparator())) ||
+		strings.Contains(path, fmt.Sprintf("%s.git%s", pathSeparator(), pathSeparator()))
 }
 
 type VcsDirectory struct {
@@ -53,4 +54,13 @@ type VcsDirectory struct {
 
 func NewVcsDirectory() *VcsDirectory {
 	return &VcsDirectory{FilePath: nil, DirPath: nil}
+}
+
+func pathSeparator() string {
+	switch runtime.GOOS {
+	case "windows":
+		return "\\"
+	default:
+		return "/"
+	}
 }
