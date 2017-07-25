@@ -6,6 +6,7 @@ import (
 	"github.com/0x0010/cleanvcs/pad"
 	"github.com/0x0010/cleanvcs/utils"
 	"os"
+	"runtime"
 	"strings"
 )
 
@@ -30,6 +31,11 @@ func main() {
 
 		if strings.EqualFold(strings.TrimSpace(text), "y") {
 			utils.DelVcsFiles(vd)
+		}
+	} else {
+		if strings.EqualFold(runtime.GOOS, "windows") {
+			fmt.Print("Press 'Enter' to continue...")
+			bufio.NewReader(os.Stdin).ReadBytes('\n')
 		}
 	}
 }
