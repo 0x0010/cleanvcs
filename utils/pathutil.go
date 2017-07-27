@@ -48,7 +48,7 @@ func isVcsPath(path string) bool {
 		strings.Contains(path, fmt.Sprintf("%s.git%s", pathSeparator(), pathSeparator()))
 }
 
-//VcsDirectory designed to store vcs files
+//VcsDirectory is designed to store vcs files
 type VcsDirectory struct {
 	FilePath []string
 	DirPath  []string
