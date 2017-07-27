@@ -61,7 +61,7 @@ func NewVcsDirectory() *VcsDirectory {
 }
 
 func pathSeparator() string {
-	switch runtime.GOOS {
+	switch os := runtime.GOOS; os {
 	case "windows":
 		return "\\"
 	default:
