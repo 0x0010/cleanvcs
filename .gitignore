@@ -16,5 +16,8 @@
 .idea/
 .vscode/
 
+# ignore all debug files
+debug
+
 cleanvcs
 cleanvcs.exe
